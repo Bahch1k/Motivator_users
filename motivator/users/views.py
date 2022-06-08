@@ -1,9 +1,9 @@
 from django.shortcuts import redirect, render
-from django.views import View
+from rest_framework.generics import CreateAPIView
 from .forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
-class Register(View):
+class Register(CreateAPIView):
     template_name = 'registration/register.html'
 
     def get(self, request):
