@@ -4,9 +4,5 @@
    <h1>Домашняя страница</h1>
    <hr>
 
-   {% if user.is_authenticated %}
-      <a href={% url 'logout' %}>Выйти</a>
-   {% else %}
-      <a href={% url 'register' %}>Регистрация</a> | <a href={% url 'login' %}>Войти</a>
-   {% endif %}
+
 {% endblock  %}
