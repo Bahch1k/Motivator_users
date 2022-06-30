@@ -17,13 +17,10 @@ class MotivationForm(forms.ModelForm):
     class Meta:
         
         model = Motivation
-        fields = ('motivation', 'nickname')
+        fields = ('motivation',)
         widgets = {
                 'motivation': forms.Textarea(attrs={
             'class': 'form-control mt-4',
             'placeholder': 'Напишите свою мотивацию.'
                     }),
-                'nickname': forms.TextInput(attrs={
-                    'class': 'form-control mt-4',       
-                    }) 
         }

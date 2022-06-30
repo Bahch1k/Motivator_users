@@ -3,10 +3,7 @@
 {% block content%}
 <form action="{% url 'motivations' %}" method='post'>
     {% csrf_token %}
-    {{ form.nickname }}
     {{ form.motivation }}
-    <input type='text', value='{{ user }}', class='form-control mt-4'></input><br> 
-    {% comment %} <textarea placeholder='Напишите свою мотивацию.', class='form-control'></textarea><br> {% endcomment %}
     <button type="submit" class="btn btn-success mt-4">Отправить</button>
 </form>
 {% endblock %}

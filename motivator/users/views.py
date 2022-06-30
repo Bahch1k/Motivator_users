@@ -1,4 +1,5 @@
 
+import re
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView
 from .forms import UserCreationForm, MotivationForm
@@ -42,7 +43,8 @@ class MotivationView(CreateView):
         if request.user.is_authenticated:
             form = MotivationForm
             context = {
-                'form': form,
+                'form': form
+                
             }
             return render(request, self.template_name, context)
         else:
@@ -50,8 +52,11 @@ class MotivationView(CreateView):
 
     def post(self, request):
         form = MotivationForm(request.POST)
+        
         if form.is_valid():
-            form.save()
+            motivation = form.save(commit=False)
+            motivation.nickname = request.user
+            motivation.save()
             return redirect('main')
         context = {
             'form': form
