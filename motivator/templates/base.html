@@ -18,6 +18,19 @@
             <li class="list-group-item">
                 <a href={% url 'home' %}>Домой</a> 
             </li>
+            <li class="list-group-item">
+                {% if user.is_authenticated %}
+                    <li class="list-group-item">
+                        <a href={% url 'logout' %}>Выйти</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href={% url 'motivations' %}>Написать мотивацию</a> | <a href={% url 'main' %}>Посмотреть мотивации</a>
+                    </li>
+                {% else %}
+                    <a href={% url 'register' %}>Регистрация</a> | <a href={% url 'login' %}>Войти</a> | <a href={% url 'motivations' %}>Написать мотивацию</a> | <a href={% url 'main' %}>Посмотреть мотивации</a>
+                {% endif %}
+
+            </li>
         </ul>
 
         {% block content %}

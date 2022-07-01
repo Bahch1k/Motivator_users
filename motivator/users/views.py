@@ -1,9 +1,12 @@
 from django.shortcuts import redirect, render
-from rest_framework.generics import CreateAPIView
-from .forms import UserCreationForm
+from django.views.generic import CreateView
+from .forms import UserCreationForm, MotivationForm
 from django.contrib.auth import authenticate, login
+from .models import Motivation
+from django.conf import settings
 
-class Register(CreateAPIView):
+
+class Register(CreateView):
     template_name = 'registration/register.html'
 
     def get(self, request):
@@ -21,6 +24,38 @@ class Register(CreateAPIView):
             user = authenticate(username=username, password=password)
             login(request, user)
             return redirect('home')
+        context = {
+            'form': form
+        }
+        return render(request, self.template_name, context)
+
+def list(request):
+    motivations = Motivation.objects.all()
+    return render(request, 'main.html', {'motivations': motivations})
+
+
+class MotivationView(CreateView):
+    template_name = 'post.html'
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            form = MotivationForm
+            context = {
+                'form': form
+                
+            }
+            return render(request, self.template_name, context)
+        else:
+            return redirect(settings.LOGIN_URL)
+
+    def post(self, request):
+        form = MotivationForm(request.POST)
+        
+        if form.is_valid():
+            motivation = form.save(commit=False)
+            motivation.nickname = request.user
+            motivation.save()
+            return redirect('main')
         context = {
             'form': form
         }

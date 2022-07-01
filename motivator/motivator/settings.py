@@ -74,6 +74,8 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_URL = '/users/login'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -87,6 +89,17 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Motivator',
+#         'USER': 'Baha',
+#         'PASSWORD': 'BaHa1206',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
