@@ -1,5 +1,3 @@
-
-import re
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView
 from .forms import UserCreationForm, MotivationForm
@@ -34,6 +32,10 @@ class Register(CreateView):
 def list(request):
     motivations = Motivation.objects.all()
     return render(request, 'main.html', {'motivations': motivations})
+
+def random_motivation(request):
+    random_motivation = Motivation.objects.all().order_by('?')[:1]
+    return render(request, 'home.html', {'random_motivation': random_motivation})
 
 
 class MotivationView(CreateView):
