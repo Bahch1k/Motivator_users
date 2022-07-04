@@ -1,5 +1,4 @@
-
-import re
+from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView
 from .forms import UserCreationForm, MotivationForm
@@ -33,7 +32,11 @@ class Register(CreateView):
 
 def list(request):
     motivations = Motivation.objects.all()
-    return render(request, 'main.html', {'motivations': motivations})
+    paginator = Paginator(motivations, 5)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'main.html', {'page_obj': page_obj})
 
 
 class MotivationView(CreateView):
@@ -43,8 +46,7 @@ class MotivationView(CreateView):
         if request.user.is_authenticated:
             form = MotivationForm
             context = {
-                'form': form
-                
+                'form': form    
             }
             return render(request, self.template_name, context)
         else:
