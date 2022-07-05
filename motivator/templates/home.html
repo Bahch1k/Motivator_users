@@ -4,7 +4,7 @@
    <h1>Домашняя страница</h1>
    <hr>
 
-
+{% if user.is_authenticated %}
    {% if random_motivation %}
       {% for el in random_motivation %}
          <div class='alert alert-warning mt-4'>
@@ -15,6 +15,8 @@
    {% else %}
          <p>Записи отсутствуют</p>
    {% endif %}
-
-
+{% else %}
+   <h6 class='alert alert-success mt-4'>Для того, чтобы получить мотивацию, авторизуйтесь</h6>
+   <a href={% url 'login' %} class='btn btn-success mt-4'>Авторизоваться</a>
+{% endif %}
 {% endblock  %}

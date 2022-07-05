@@ -12,4 +12,5 @@
     {% if form.errors %}
         <p>{{ form.errors.error }}</p>
     {% endif %}
+    <p>Нет аккаунта? <a href={% url 'register' %}>Зарегистрироваться.</a></p>
 {% endblock %}
