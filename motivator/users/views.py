@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, ListView
 from .forms import UserCreationForm, MotivationCreateForm
@@ -38,6 +39,16 @@ class MotivationList(ListView):
         page_obj = response.json
         return render(request, self.template_name, {'page_obj':page_obj})
 
+class DetailMotivationList(ListView):
+    template_name = 'maintest.html'
+
+    def get(self, request, id):
+        url = 'http://motivations:9000/motivations/'
+        response = requests.get(url + str(id))
+        motivation = response.json()
+        return render(request, self.template_name, {'motivation': motivation})
+
+
 class RandomMotivation(ListView):
 
     template_name = 'home.html'
@@ -70,4 +81,3 @@ class MotivationCreate(CreateView):
             'form': form
         }
         return render(request, self.template_name, context)
-
