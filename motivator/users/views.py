@@ -35,16 +35,22 @@ class MotivationList(ListView):
     template_name = 'main.html'
 
     def get(self, request):
-        response = requests.get('http://motivations:9000/motivations/')
+        headers = {
+            'Authorization': ')tt1bNA71hEja@:RJoFb+cb:GnD)Zmx8'
+        }
+        response = requests.get('http://motivations:9000/motivations/', headers=headers)
         page_obj = response.json
         return render(request, self.template_name, {'page_obj':page_obj})
 
 class DetailMotivationList(ListView):
-    template_name = 'maintest.html'
+    template_name = 'motivation_id.html'
 
     def get(self, request, id):
+        headers = {
+            'Authorization': ')tt1bNA71hEja@:RJoFb+cb:GnD)Zmx8'
+        }
         url = 'http://motivations:9000/motivations/'
-        response = requests.get(url + str(id))
+        response = requests.get(url + str(id), headers=headers)
         motivation = response.json()
         return render(request, self.template_name, {'motivation': motivation})
 
@@ -54,7 +60,10 @@ class RandomMotivation(ListView):
     template_name = 'home.html'
 
     def get(self, request):
-        response = requests.get('http://motivations:9000/motivations/random')
+        headers = {
+            'Authorization': ')tt1bNA71hEja@:RJoFb+cb:GnD)Zmx8'
+        }
+        response = requests.get('http://motivations:9000/motivations/random', headers=headers)
         random_motivation = response.json()
         return render(request, self.template_name, {'random_motivation': random_motivation})
 
@@ -72,7 +81,10 @@ class MotivationCreate(CreateView):
         if form.is_valid():
             new_motivaion = form.cleaned_data.get('motivation')
             user = request.user.username
-            response = requests.post('http://motivations:9000/motivations/new', json={
+            headers = {
+            'Authorization': ')tt1bNA71hEja@:RJoFb+cb:GnD)Zmx8'
+        }
+            response = requests.post('http://motivations:9000/motivations/new',headers=headers, json={
                 'nickname': user,
                 'motivation': new_motivaion
             })
